@@ -7,14 +7,12 @@ onOpen : null -> void
 function onOpen() {
   var ui = SpreadsheetApp.getUi();
   ui.createMenu('Commentator')
-      .addItem('Update form roster', 'updateFormRoster')
-      .addItem('Update form debates', 'updateFormDebateList')
+      .addItem('Configure form IDs', 'configFormItems')
+      .addSeparator()
+      .addItem('Update form rosters', 'updateFormRoster')
+      .addItem('Update form debate list', 'updateFormDebateList')
       .addSeparator()
       .addItem('Upload and archive all', 'testSubmitTrigger')
-      .addSeparator()
-      .addSubMenu(SpreadsheetApp.getUi().createMenu('Configuration')
-           .addItem('Get form IDs', 'configFormItems')
-           .addItem('Another Submenu Item', 'myThirdFunction'))
       .addToUi();
 }
 
