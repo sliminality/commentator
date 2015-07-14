@@ -12,8 +12,30 @@ function onOpen() {
       .addItem('Update form rosters', 'updateFormRoster')
       .addItem('Update form debate list', 'updateFormDebateList')
       .addSeparator()
-      .addItem('Upload and archive all', 'testSubmitTrigger')
+      .addItem('Upload all comments', 'testSubmitTrigger')
+      .addItem('Archive all comments', 'archiveResponses')
+      .addItem('Upload and archive all', 'uploadAndArchive')
       .addToUi();
+}
+
+/***************************************************************
+extractOnSubmit : Event -> void
+
+- handles a form submission Event and passes it to extractComments
+- archives the response row
+****************************************************************/
+
+function extractOnSubmit(e) {
+  extractComments(e);
+  
+  var ss = SpreadsheetApp.getActive();
+  var archiveSheet = ss.getSheetByName('Archive');
+  var responseSheet = ss.getSheetByName('Form Responses 1');
+  
+  var dest = archiveSheet.getRange(archiveSheet.getLastRow() + 1, 1, 1);
+  e.range.copyTo(dest);
+  
+  responseSheet.deleteRow(e.range.getRow());
 }
 
 /***************************************************************
@@ -81,18 +103,33 @@ archiveResponses : null -> void
 function archiveResponses() {
   var ss = SpreadsheetApp.getActive();
   var responseSheet = ss.getSheetByName('Form Responses 1');
-  var responses = responseSheet.getRange(2, 1, responseSheet.getLastRow(), responseSheet.getLastColumn()).getValues();
   
-  //copy responses to archive sheet
-  var archiveSheet = ss.getSheetByName('Archive');
+  //make sure responses exist
+  if ((responseSheet.getLastRow() - 1) > 0) {
+    var responses = responseSheet.getRange(2, 1, responseSheet.getLastRow() - 1, responseSheet.getLastColumn()).getValues();
+    var archiveSheet = ss.getSheetByName('Archive');
   
-  archiveSheet.getRange(archiveSheet.getLastRow() + 1,
-                        1,
-                        responseSheet.getLastRow(),
-                        responseSheet.getLastColumn()).setValues(responses);
+    //copy responses to archive sheet
+    archiveSheet.getRange(archiveSheet.getLastRow() + 1,
+                          1,
+                          responseSheet.getLastRow(),
+                          responseSheet.getLastColumn()).setValues(responses);
   
-  //clear original sheet except for header rule
-  responseSheet.deleteRows(2, ss.getLastRow() - 1);
+    //clear original sheet except for header rule
+    responseSheet.deleteRows(2, responseSheet.getLastRow() - 1);
+  }
+}
+
+/***************************************************************
+uploadAndArchive : null -> void
+
+- uploads all comments on the 'Form Responses 1' sheet
+- moves all comments from 'Form Responses 1' to 'Archive'
+****************************************************************/
+
+function uploadAndArchive() {
+  testSubmitTrigger();
+  archiveResponses();
 }
 
 /***************************************************************

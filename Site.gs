@@ -6,12 +6,8 @@ displayComments : Comments[] -> void
 ****************************************************************/
 
 function displayComments(commentsArray) {
-  //get comments page URL from Config sheet
-  var configSheet = ss.getSheetByName('Config');
-  var urls = configSheet.getRange(2, 1, 2, configSheet.getMaxColumns());
-  var commentsURL = urls.getCell(1, 2).getValue();
-  
   //import pages
+  var commentsURL = getCommentsURL();
   var commentsPage = SitesApp.getPageByUrl(commentsURL);
   var studentPages = commentsPage.getChildren();
   
@@ -37,7 +33,4 @@ function displayComments(commentsArray) {
       page.setHtmlContent(output);
     }
   }
-  
-  //archive all Form Responses
-  archiveResponses();
 }
