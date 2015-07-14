@@ -3,6 +3,7 @@ onOpen : null -> void
 
 - creates a menu for Commentator functions
 ****************************************************************/
+
 function onOpen() {
   var ui = SpreadsheetApp.getUi();
   ui.createMenu('Commentator')
@@ -10,6 +11,10 @@ function onOpen() {
       .addItem('Update form debates', 'updateFormDebateList')
       .addSeparator()
       .addItem('Upload and archive all', 'testSubmitTrigger')
+      .addSeparator()
+      .addSubMenu(SpreadsheetApp.getUi().createMenu('Configuration')
+           .addItem('Get form IDs', 'configFormItems')
+           .addItem('Another Submenu Item', 'myThirdFunction'))
       .addToUi();
 }
 
@@ -19,6 +24,7 @@ testSubmitTrigger : null -> void
 - creates a simulated Event based on contents of 'Form Responses 1'
 - runs extractComments on the simulated Event
 ****************************************************************/
+
 function testSubmitTrigger() {
   var dataRange = SpreadsheetApp.getActiveSheet().getDataRange();
   var data = dataRange.getValues();
@@ -47,11 +53,6 @@ extractComments : Event -> void
 ****************************************************************/
 
 function extractComments(e) {
-  //EDIT VARIABLES HERE
-  var url = 'https://sites.google.com/site/2015nudebateinstitute';
-  var labPage = 'six-week-fitzmier-lundberg-abelkop';
-  var commentsPage = 'six-week-fla-comments';
-  
   //extract each student's comments from response
   var responses = e.namedValues;
   
@@ -68,9 +69,9 @@ function extractComments(e) {
   var comments = students.map(function(student) {
     return new Comment(debate, judge, student[0], student[1]);
   });
-  
+ 
   //call displayComments
-  displayComments(comments, url, labPage, commentsPage);
+  displayComments(comments);
 }
 
 /***************************************************************
@@ -97,6 +98,28 @@ function archiveResponses() {
 }
 
 /***************************************************************
+configFormItems : null -> void
+
+- sets Form item values in Config sheet
+****************************************************************/
+
+function configFormItems() {
+  var ss = SpreadsheetApp.getActive();
+  
+  //get form URL from Config sheet
+  var configSheet = ss.getSheetByName('Config');
+  var urls = configSheet.getRange(2, 1, 2, configSheet.getMaxColumns());
+  var formURL = urls.getCell(2, 2).getValue();
+  
+  //set range with IDs
+  var values = logFormItemIDs(formURL);
+  var range = configSheet.getRange(6, 1, values.length, configSheet.getMaxColumns());
+  
+  Logger.log(values);
+  range.setValues(values);
+}
+
+/***************************************************************
 A Comment has:
 
 - String debate: a practice debate
@@ -110,24 +133,6 @@ function Comment(debate, judge, student, comments) {
   this.judge = judge;
   this.student = student;
   this.comments = comments;
-}
-
-/***************************************************************
-logFormItemIDs : null -> void
-
-- log item IDs for a given form
-****************************************************************/
-
-function logFormItemIDs() {
-  var formID = '19Md_6mri520BH8ypnhrEXP2HSHu2nTlN6QJ_ZckMNfo';
-  
-  var form = FormApp.openById(formID);
-  var items = form.getItems();
-  for (i = 0; i < items.length; i++) {
-    var id = items[i].getId();
-    var title = items[i].getTitle();
-    Logger.log(title + ': ' + id);
-  }
 }
 
 /***************************************************************
@@ -168,6 +173,36 @@ function studentName(code) {
   //get data for student names and codes
   var index = studentCodes.indexOf(code);
   return studentNames[index];
+}
+
+/***************************************************************
+getFormURL : null -> String
+
+- returns the form URL specified in the Config sheet
+****************************************************************/
+
+function getFormURL() {
+  var ss = SpreadsheetApp.getActive();
+  var configSheet = ss.getSheetByName('Config');
+  var urls = configSheet.getRange(2, 1, 2, configSheet.getMaxColumns());
+  var formURL = urls.getCell(2, 2).getValue();
+  
+  return formURL;
+}
+
+/***************************************************************
+getCommentsURL : null -> String
+
+- returns the comments page URL specified in the Config sheet
+****************************************************************/
+
+function getCommentsURL() {
+  var ss = SpreadsheetApp.getActive();
+  var configSheet = ss.getSheetByName('Config');
+  var urls = configSheet.getRange(2, 1, 2, configSheet.getMaxColumns());
+  var commentsURL = urls.getCell(1, 2).getValue();
+  
+  return commentsURL;
 }
 
 /***************************************************************

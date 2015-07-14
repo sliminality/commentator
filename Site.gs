@@ -1,14 +1,18 @@
 /***************************************************************
-displayComments : Comments[], String, String, String -> void
+displayComments : Comments[] -> void
 
 - loads a comments index page for a Google Site
 - adds each Comment to the appropriate subpage
 ****************************************************************/
 
-function displayComments(commentsArray, url, labPageName, commentsPageName) {
+function displayComments(commentsArray) {
+  //get comments page URL from Config sheet
+  var configSheet = ss.getSheetByName('Config');
+  var urls = configSheet.getRange(2, 1, 2, configSheet.getMaxColumns());
+  var commentsURL = urls.getCell(1, 2).getValue();
+  
   //import pages
-  var site = SitesApp.getSiteByUrl(url);
-  var commentsPage = site.getChildByName("home").getChildByName(labPageName).getChildByName(commentsPageName);
+  var commentsPage = SitesApp.getPageByUrl(commentsURL);
   var studentPages = commentsPage.getChildren();
   
   //loop through Comments[] array and load the appropriate page

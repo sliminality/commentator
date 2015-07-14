@@ -1,16 +1,3 @@
-/* Form field IDs
-[15-07-08 01:01:15:476 CDT] Judge Name: 43525939
-[15-07-08 01:01:15:492 CDT] Practice Debate: 1445144735
-[15-07-08 01:01:15:518 CDT] 1A: 360919578
-[15-07-08 01:01:15:542 CDT] Comments for 1A: 80599934
-[15-07-08 01:01:15:555 CDT] 2A: 1151492526
-[15-07-08 01:01:15:571 CDT] Comments for 2A: 1750418357
-[15-07-08 01:01:15:583 CDT] 1N: 1644951990
-[15-07-08 01:01:15:607 CDT] Comments for 1N: 1114399512
-[15-07-08 01:01:15:622 CDT] 2N: 1652246354
-[15-07-08 01:01:15:637 CDT] Comments for 2N: 558994508
-*/
-
 /***************************************************************
 updateFormDebateList : null -> void
 
@@ -18,29 +5,32 @@ updateFormDebateList : null -> void
 ****************************************************************/
 
 function updateFormDebateList() {
-  //modify these
-  var formID = '19Md_6mri520BH8ypnhrEXP2HSHu2nTlN6QJ_ZckMNfo';
-  var debateListID = '1445144735';
+  //get form item IDs from Config sheet
+  var ss = SpreadsheetApp.getActive();
+  var configSheet = ss.getSheetByName('Config');
+  var ids = configSheet.getRange(6, 1, configSheet.getLastRow() - 5, configSheet.getLastColumn());
+  var debateListID = ids.getCell(2, 2).getValue();
   
   //import form items
-  var form = FormApp.openById(formID);
-  var debateList = form.getItemById(debateListID).asListItem();
-  var ss = SpreadsheetApp.getActive();
+  var formURL = getFormURL();
+  var form = FormApp.openByUrl(formURL);
   
+  //get values from DebateList sheet
   var debateSheet = ss.getSheetByName("DebateList");
   var debateVals = debateSheet.getRange(2, 1, debateSheet.getMaxRows() - 1).getValues();
 
   var debates = [];
-
+  
   // convert 2D to 1D array and ignore empty cells
   for(var i = 0; i < debateVals.length; i++)    
     if(debateVals[i][0] != "")
       debates[i] = debateVals[i][0];
   
-  //set the eventNames array in reverse-chronological order
+  //set the debates array in reverse-chronological order
   debates.reverse();
-
+  
   // populate the list
+  var debateList = form.getItemById(debateListID).asListItem();
   debateList.setChoiceValues(debates);
 }
 
@@ -51,17 +41,22 @@ updateFormRoster : null -> void
 ****************************************************************/
 
 function updateFormRoster() {
-  //modify these
-  var formID = '19Md_6mri520BH8ypnhrEXP2HSHu2nTlN6QJ_ZckMNfo';
-  var studentLists = [360919578, //1A
-                      1151492526, //2A
-                      1644951990, //1N
-                      1652246354] //2N
-  
-  //import form items
-  var form = FormApp.openById(formID);
+  //get form item IDs from Config sheet
   var ss = SpreadsheetApp.getActive();
+  var configSheet = ss.getSheetByName('Config');
+  var ids = configSheet.getRange(6, 1, configSheet.getLastRow() - 5, configSheet.getLastColumn());
+  var studentLists = [ids.getCell(3, 2).getValue(), //1A
+                      ids.getCell(5, 2).getValue(), //2A
+                      ids.getCell(7, 2).getValue(), //1N
+                      ids.getCell(9, 2).getValue() //2N
+                     ];
+  Logger.log(studentLists);
   
+  //import form
+  var formURL = getFormURL();
+  var form = FormApp.openByUrl(formURL);
+  
+  //get values from Roster sheet
   var studentSheet = ss.getSheetByName("Roster");
   var studentVals = studentSheet.getRange(2, 1, studentSheet.getMaxRows() - 1).getValues();
 
@@ -72,8 +67,31 @@ function updateFormRoster() {
     if(studentVals[i][0] != "")
       students[i] = studentVals[i][0];
   
+  //set form values for each student field
   for (var i = 0; i < studentLists.length; i++) {
     var item = form.getItemById(studentLists[i]).asListItem();
     item.setChoiceValues(students);
   }
+}
+
+/***************************************************************
+logFormItemIDs : String -> Array[]
+
+- log item IDs for a given Form
+- return a 2D array of Item titles and IDs
+****************************************************************/
+
+function logFormItemIDs() {
+  var form = FormApp.openByUrl(formURL);
+  var items = form.getItems();
+  var ids = [];
+  
+  for (i = 0; i < items.length; i++) {
+    var id = items[i].getId();
+    var title = items[i].getTitle();
+    Logger.log(title + ': ' + id);
+    ids[i] = [title, id];
+  }
+  
+  return ids;
 }
