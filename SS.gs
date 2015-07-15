@@ -79,15 +79,13 @@ function extractComments(e) {
   var judge = responses['Judge Name'][0];
   var debate = responses['Practice Debate'][0];
   
-  //put student name and comments into array and create a Comment for each student
-  var students = [];
-  students[0] = [responses['1A'][0], responses['Comments for 1A'][0]];
-  students[1] = [responses['2A'][0], responses['Comments for 2A'][0]];
-  students[2] = [responses['1N'][0], responses['Comments for 1N'][0]];
-  students[3] = [responses['2N'][0], responses['Comments for 2N'][0]];
+  //arbitrary ordering of students
+  var students = ['1A', '2A', '1N', '2N'];
   
+  //generate comments based for each student in list
+  //pulls name of name of debate, name of judge, name of student, comments for student
   var comments = students.map(function(student) {
-    return new Comment(debate, judge, student[0], student[1]);
+    return new Comment(debate, judge, responses[student][0], responses['Comments for ' + student][0]]);
   });
  
   //call displayComments
