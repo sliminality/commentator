@@ -81,7 +81,7 @@ logFormItemIDs : String -> Array[]
 - return a 2D array of Item titles and IDs
 ****************************************************************/
 
-function logFormItemIDs() {
+function logFormItemIDs(formURL) {
   var form = FormApp.openByUrl(formURL);
   var items = form.getItems();
   var ids = [];
