@@ -26,10 +26,21 @@ function displayComments(commentsArray) {
       var judge = commentsArray[i].judge;
       var comments = commentsArray[i].comments;
       var addition = '<h2>' + debate + ' &mdash; ' + judge + '</h2><p style="white-space: pre-wrap;">' + comments + '</p>';
+      var end;
+      
+      // Check whether page is empty
+      if (html.charAt(145) === 'i') {
+        // Page is empty
+        end = '</td>' + html.slice(170);
+      }
+      else {
+        // Page is not empty
+        end = html.slice(145);
+      }
     
-      //add to page
+      // Append html to page
       var top = "<table class='sites-layout-name-one-column sites-layout-hbox' cellspacing='0'><tbody><tr><td class='sites-layout-tile sites-tile-name-content-1'>";
-      var output = top + addition + html.slice(145); //assumes a 145char top html substring
+      var output = top + addition + end;
       page.setHtmlContent(output);
     }
   }
