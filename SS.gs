@@ -110,7 +110,7 @@ function archiveResponses() {
     //copy responses to archive sheet
     archiveSheet.getRange(archiveSheet.getLastRow() + 1,
                           1,
-                          responseSheet.getLastRow(),
+                          responseSheet.getLastRow() - 1,
                           responseSheet.getLastColumn()).setValues(responses);
   
     //clear original sheet except for header rule
