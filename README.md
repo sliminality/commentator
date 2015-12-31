@@ -15,13 +15,13 @@ You can give Commentator a whirl [here](https://sites.google.com/a/sarahlim.com/
 Depending on how overwhelming this looks, I offer support and custom installations -- just contact me.
 
 1. **Set up and configure your Google Site ([example](https://sites.google.com/site/2015nudebateinstitute/home)).** Page hierarchy should be as follows:
-```
-|- Home
-   |- Lab Page
-      |- Lab Comments Page
-         |- S1
-         |- S2
-```
+    ```
+    |- Home
+       |- Lab Page
+          |- Lab Comments Page
+             |- S1
+             |- S2
+    ```
     If you click "Manage Site" and navigate to "Pages," your sitemap should look like the following:
     ![Google Site page hierarchy](https://cldup.com/D5Ji41uncT-3000x3000.png)
 
