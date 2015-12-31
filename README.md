@@ -36,8 +36,9 @@ Tip: on the "Lab Comments Page," insert a Subpage Listing to automatically displ
 
 Open up your copy of the sheet. In the menu, navigate to Tools > Script Editor.
 
-In the Script Editor for your spreadsheet, navigate to File > New.
-![Create a new script file](https://cldup.com/mSrvdSqWOa.png) and create a file called `Form.gs`. Copy and paste in the contents of `Form.gs` from this repo. Repeat for `SS.gs` and `Site.gs`.
+In the Script Editor for your spreadsheet, navigate to File > New and create a file called `Form.gs`. Copy and paste in the contents of `Form.gs` from this repo. Repeat for `SS.gs` and `Site.gs`.
+
+![Create a new script file](https://cldup.com/mSrvdSqWOa.png) 
 
 3. **Copy and link the submission form.** Make a copy of [this form](https://docs.google.com/forms/d/1kJvUYSyfdG0HiC0eJAuKLHYSOdwOElH0HbQAfSbTTe0/edit?usp=sharing). Navigate to Responses > Choose response destination > New sheet in an existing spreadsheet and select the copy of the sheet you made in step 2.
 
