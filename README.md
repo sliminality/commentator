@@ -73,23 +73,19 @@ Direct judges to fill out the comment submission form every time they judge a de
 
 Here's a description of each tab in the main sheet.
 
-**Form Responses 1** is a "processing queue" for comments that have been submitted but not uploaded. You can see any comment whose upload failed here.
-
-**Archive** is a log of all successfully uploaded comments. After a comment is uploaded, it is moved from Form Responses to the Archive.
-
-**DebateList** is a list of all debates. Add events here and run "Update form debate list" to update the form. Judges can select from all listed debates when entering comments, and the selected debate will be uploaded to the student's feedback page along with their individual comments.
-
-**Roster** stores a list of all students. Each row contains a student's full name (displayed on the submission form) and code (displayed on the website). Add students here and run "Update form rosters" to automatically update the drop-down boxes for 1A, 2A, 1N, and 2N to reflect the roster.
-
-**Config** includes two fields for URLs, one for your Google Sites comments page and one for your Google Form.
+* **Form Responses 1** is a "processing queue" for comments that have been submitted but not uploaded. You can see any comment whose upload failed here.
+* **Archive** is a log of all successfully uploaded comments. After a comment is uploaded, it is moved from Form Responses to the Archive.
+* **DebateList** is a list of all debates. Add events here and run "Update form debate list" to update the form. Judges can select from all listed debates when entering comments, and the selected debate will be uploaded to the student's feedback page along with their individual comments.
+* **Roster** stores a list of all students. Each row contains a student's full name (displayed on the submission form) and code (displayed on the website). Add students here and run "Update form rosters" to automatically update the drop-down boxes for 1A, 2A, 1N, and 2N to reflect the roster.
+* **Config** includes two fields for URLs, one for your Google Sites comments page and one for your Google Form.
 
 If you've successfully added the script files to your spreadsheet, you should see the "Commentator" menu in the spreadsheet. Here is an explanation of what each action does.
 
-**Configure form IDs** should be run once, whenever the submission form URL is updated. It takes the URL of a form and automatically retrieves information about each field, which Commentator needs to process submissions. You can ignore these values on the Config tab.
+* **Configure form IDs** should be run once, whenever the submission form URL is updated. It takes the URL of a form and automatically retrieves information about each field, which Commentator needs to process submissions. You can ignore these values on the Config tab.
 
-**Update form rosters** reads from the Roster tab and automatically updates the submission form 1A, 2A, 1N, and 2N fields to reflect the roster.
-**Update form debate list** reads from the DebateList tab and automatically updates the comments submission form Practice Debate field to reflect the debate list.
+* **Update form rosters** reads from the Roster tab and automatically updates the submission form 1A, 2A, 1N, and 2N fields to reflect the roster.
+* **Update form debate list** reads from the DebateList tab and automatically updates the comments submission form Practice Debate field to reflect the debate list.
 
-**Upload all comments** uploads all comments in "Form Responses 1" to the Google Site, but does not move them to the Archive tab.
-**Archive all comments** moves all comments in "Form Responses 1" to the Archive tab, but does not upload them to the Google Site.
-**Upload and archive all** uploads all comments in "Form Responses 1" to the Google Site, then moves them to the Archive tab.
+* **Upload all comments** uploads all comments in "Form Responses 1" to the Google Site, but does not move them to the Archive tab.
+* **Archive all comments** moves all comments in "Form Responses 1" to the Archive tab, but does not upload them to the Google Site.
+* **Upload and archive all** uploads all comments in "Form Responses 1" to the Google Site, then moves them to the Archive tab.
