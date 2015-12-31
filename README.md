@@ -22,50 +22,50 @@ Depending on how overwhelming this looks, I offer support and custom installatio
          |- S1
          |- S2
 ```
-If you click "Manage Site" and navigate to "Pages," your sitemap should look like the following:
-![Google Site page hierarchy](https://cldup.com/D5Ji41uncT-3000x3000.png)
+    If you click "Manage Site" and navigate to "Pages," your sitemap should look like the following:
+    ![Google Site page hierarchy](https://cldup.com/D5Ji41uncT-3000x3000.png)
 
-Each individual student's page should be named with a code for that student (e.g. initials). Commentator currently does not allow student codes to contain spaces.
+    Each individual student's page should be named with a code for that student (e.g. initials). Commentator currently does not allow student codes to contain spaces.
 
-**If you do not use sub-page hierarchies, Commentator will not work.** When creating a new page, select the option to "Put page under..." and choose the appropriate parent, rather than creating the page at the top level.
-![Creating a sub-page](https://cldup.com/5TgTgWFBMq-1200x1200.png)
+    **If you do not use sub-page hierarchies, Commentator will not work.** When creating a new page, select the option to "Put page under..." and choose the appropriate parent, rather than creating the page at the top level.
+    ![Creating a sub-page](https://cldup.com/5TgTgWFBMq-1200x1200.png)
 
-Tip: on the "Lab Comments Page," insert a Subpage Listing to automatically display links to all sub-pages.
+    Tip: on the "Lab Comments Page," insert a Subpage Listing to automatically display links to all sub-pages.
 
 2. **Copy the main sheet, and attach scripts.** Make a copy of [this sheet](https://docs.google.com/spreadsheets/d/1vTvlFovMUcyNTOOpluA67tOM9XwTZz6zvmJFmOTq5iQ/edit?usp=sharing).
 
-Open up your copy of the sheet. In the menu, navigate to Tools > Script Editor.
+    Open up your copy of the sheet. In the menu, navigate to Tools > Script Editor.
 
-In the Script Editor for your spreadsheet, navigate to File > New and create a file called `Form.gs`. Copy and paste in the contents of `Form.gs` from this repo. Repeat for `SS.gs` and `Site.gs`.
+    In the Script Editor for your spreadsheet, navigate to File > New and create a file called `Form.gs`. Copy and paste in the contents of `Form.gs` from this repo. Repeat for `SS.gs` and `Site.gs`.
 
-![Create a new script file](https://cldup.com/mSrvdSqWOa.png) 
+    ![Create a new script file](https://cldup.com/mSrvdSqWOa.png) 
 
 3. **Copy and link the submission form.** Make a copy of [this form](https://docs.google.com/forms/d/1kJvUYSyfdG0HiC0eJAuKLHYSOdwOElH0HbQAfSbTTe0/edit?usp=sharing). Navigate to Responses > Choose response destination > New sheet in an existing spreadsheet and select the copy of the sheet you made in step 2.
 
 4. **Configure the sheet.** Return to the sheet. Linking the form should have created a new tab called "Form Responses *x*." Delete the old tab and rename the newly-inserted tab such that your tab bar looks exactly as follows: 
-![Tab bar](https://cldup.com/eVzalr0EVe-2000x2000.png)
+    ![Tab bar](https://cldup.com/eVzalr0EVe-2000x2000.png)
 
-**It's crucial that you have only one tab for responses, and that tab be called 'Form Responses 1'.**
+    **It's crucial that you have only one tab for responses, and that tab be called 'Form Responses 1'.**
 
-In the "Config" tab, enter the complete URL of your lab's Comments Page on Google Sites, and the complete URL of your **published** Google Form (NOT the URL of the question editing interface).
+    In the "Config" tab, enter the complete URL of your lab's Comments Page on Google Sites, and the complete URL of your **published** Google Form (NOT the URL of the question editing interface).
 
-From the menu, click Commentator > Configure form IDs. (If the Commentator option is missing, double-check that step 3 was completed correctly.) This should auto-populate the Form IDs section.
+    From the menu, click Commentator > Configure form IDs. (If the Commentator option is missing, double-check that step 3 was completed correctly.) This should auto-populate the Form IDs section.
 
 5. **Add your student roster and practice debates.** Navigate to the "Roster" tab of the sheet. Enter each student's full name in the left column, and their code in the right. The student code should match the name of that student's individual feedback page in step 1.
 
-If you don't want to use codes to anonymize feedback pages, simply duplicate the contents of the "Student" column into the "Code" column.
+    If you don't want to use codes to anonymize feedback pages, simply duplicate the contents of the "Student" column into the "Code" column.
 
-From the menu, click Commentator > Update form rosters. This will auto-populate the 1A, 2A, 1N, and 2N drop-down selections in your comments submission form with the names of your students.
+    From the menu, click Commentator > Update form rosters. This will auto-populate the 1A, 2A, 1N, and 2N drop-down selections in your comments submission form with the names of your students.
 
-Navigate to the "DebateList" tab of the sheet. Enter each practice debate and date. Again, from the menu, click Commentator > Update form debate list. This will auto-populate the "Practice Debate" drop-down selection in your comments submission form.
+    Navigate to the "DebateList" tab of the sheet. Enter each practice debate and date. Again, from the menu, click Commentator > Update form debate list. This will auto-populate the "Practice Debate" drop-down selection in your comments submission form.
 
-6. **Set up triggers to automate uploading.** This step is technically optional. You can use Commentator without triggers, but you will need to manually run "Upload and archive all" from the Commentator menu (which is still much faster than manually editing each student's page).
+6.  **Set up triggers to automate uploading.** This step is technically optional. You can use Commentator without triggers, but you will need to manually run "Upload and archive all" from the Commentator menu (which is still much faster than manually editing each student's page).
 
-Go back to the comment submission form, in edit mode. Navigate to the Script Editor again (Tools > Script Editor). Note that this is a DIFFERENT Script Editor than we previously used (that one was attached to our sheet; this one is attached to our form).
+    Go back to the comment submission form, in edit mode. Navigate to the Script Editor again (Tools > Script Editor). Note that this is a DIFFERENT Script Editor than we previously used (that one was attached to our sheet; this one is attached to our form).
 
-From the Script Editor, click Resources > Current project's triggers. Click the link to add a new trigger. In the "Run" field, choose `extractOnSubmit`. Under "Events," choose "From spreadsheet" and "On form submit." Grant authorization if prompted (necessary to allow site management).
+    From the Script Editor, click Resources > Current project's triggers. Click the link to add a new trigger. In the "Run" field, choose `extractOnSubmit`. Under "Events," choose "From spreadsheet" and "On form submit." Grant authorization if prompted (necessary to allow site management).
 
-And that's it! You've set up Commentator for your lab.
+    And that's it! You've set up Commentator for your lab.
 
 ## Usage
 
